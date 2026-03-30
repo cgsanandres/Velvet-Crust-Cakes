@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Velvet Crust Cakes | Your Cart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+*{
+font-family:Arial;
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+background:#FFF8F2;
+color:#6B3E2E;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo{
+font-weight:bold;
+font-size:22px;
+}
+
+.navlinks a{
+margin:0 10px;
+text-decoration:none;
+color:#6B3E2E;
+font-size:14px;
+}
+
+.navlinks a:hover{
+color:#D8A47F;
+}
+
+/* PAGE */
+
+.container{
+padding:40px;
+max-width:1000px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+/* CART ITEMS */
+
+.cart-item{
+background:white;
+padding:20px;
+margin-bottom:15px;
+border-radius:8px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.cart-details{
+flex:1;
+}
+
+.remove-btn{
+background:#e74c3c;
+border:none;
+color:white;
+padding:8px 12px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.remove-btn:hover{
+background:#c0392b;
+}
+
+/* TOTAL BOX */
+
+.summary{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+margin-top:30px;
+}
+
+.summary p{
+margin:10px 0;
+font-size:16px;
+}
+
+/* SHIPPING */
+
+select{
+padding:10px;
+width:100%;
+margin-top:10px;
+margin-bottom:15px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+button{
+padding:12px;
+border:none;
+background:#D8A47F;
+color:white;
+border-radius:5px;
+cursor:pointer;
+width:100%;
+font-size:15px;
+}
+
+button:hover{
+background:#c78e6c;
+}
+
+.checkout{
+margin-top:20px;
+background:#6B3E2E;
+}
+
+.checkout:hover{
+background:#5a3427;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("velvetLoggedIn")!=="true"){
+window.location.href="velvetlogin.html";
+}
+</script>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">Velvet Crust Cakes</div>
+
+<div class="navlinks">
+<a href="velvetindex.html">Home</a>
+<a href="velvetmenu.html">Menu</a>
+<a href="velvetgallery.html">Gallery</a>
+<a href="buildvelvetcake.html">Build Cake</a>
+<a href="velvetpreorder.html">Pre-Order</a>
+<a href="velvetcart.html">Cart</a>
+<a href="aboutvelvet.html">About</a>
+<a href="contactvelvet.html">Contact</a>
+<a href="velvetaccount.html">Account</a>
+</div>
+
+</div>
+
+<div class="container">
+
+<h1>Your Cart</h1>
+
+<div id="cartItems"></div>
+
+<div class="summary">
+
+<p><b>Subtotal:</b> ₱<span id="subtotal">0</span></p>
+<p><b>Shipping Estimate:</b> ₱<span id="shipping">0</span></p>
+<p><b>Total:</b> ₱<span id="total">0</span></p>
+
+<label>Select Country</label>
+
+<select id="country">
+<option value="150">Philippines</option>
+<option value="250">United States</option>
+<option value="200">Japan</option>
+<option value="220">Australia</option>
+<option value="180">Singapore</option>
+</select>
+
+<button onclick="estimateShipping()">Get Shipping Estimate</button>
+
+<button class="checkout" onclick="checkout()">Checkout</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* LOAD CART */
+
+let cart=JSON.parse(localStorage.getItem("velvetCart"))||[];
+
+function displayCart(){
+
+let container=document.getElementById("cartItems");
+container.innerHTML="";
+
+let subtotal=0;
+
+cart.forEach((item,index)=>{
+
+subtotal+=item.price;
+
+container.innerHTML+=`
+
+<div class="cart-item">
+
+<div class="cart-details">
+<h3>${item.item}</h3>
+<p>Price: ₱${item.price}</p>
+</div>
+
+<button class="remove-btn" onclick="removeItem(${index})">
+Remove
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("subtotal").innerText=subtotal;
+
+let shipping=document.getElementById("shipping").innerText;
+
+document.getElementById("total").innerText=
+Number(subtotal)+Number(shipping);
+
+}
+
+/* REMOVE ITEM */
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("velvetCart",JSON.stringify(cart));
+
+displayCart();
+
+}
+
+/* SHIPPING ESTIMATE */
+
+function estimateShipping(){
+
+let shipping=document.getElementById("country").value;
+
+document.getElementById("shipping").innerText=shipping;
+
+displayCart();
+
+}
+
+/* CHECKOUT */
+
+function checkout(){
+
+if(cart.length===0){
+alert("Your cart is empty!");
+return;
+}
+
+alert("Thank you for your order! Your cakes will be prepared soon.");
+
+localStorage.removeItem("velvetCart");
+
+displayCart();
+
+}
+
+displayCart();
+
+</script>
+
+</body>
+</html>

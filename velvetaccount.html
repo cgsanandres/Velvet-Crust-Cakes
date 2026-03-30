@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Velvet Crust Cakes | Account</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#FFF8F2;
+color:#6B3E2E;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+.navlinks a{
+margin:0 10px;
+text-decoration:none;
+color:#6B3E2E;
+font-size:14px;
+}
+
+.navlinks a:hover{
+color:#D8A47F;
+}
+
+.container{
+padding:40px;
+max-width:800px;
+margin:auto;
+}
+
+h1,h2{
+color:#D8A47F;
+}
+
+.section{
+background:white;
+padding:30px;
+border-radius:10px;
+margin-bottom:30px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+button{
+padding:12px;
+border:none;
+background:#D8A47F;
+color:white;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+margin-top:10px;
+}
+
+button:hover{
+background:#c78e6c;
+}
+
+.account-links a{
+display:block;
+padding:10px 0;
+color:#6B3E2E;
+text-decoration:none;
+border-bottom:1px solid #f0e6e0;
+}
+
+.account-links a:hover{
+color:#D8A47F;
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+<div class="logo">Velvet Crust Cakes</div>
+<div class="navlinks">
+<a href="velvetindex.html">Home</a>
+<a href="velvetmenu.html">Menu</a>
+<a href="velvetgallery.html">Gallery</a>
+<a href="buildvelvetcake.html">Build Cake</a>
+<a href="velvetpreorder.html">Pre-Order</a>
+<a href="velvetcart.html">Cart</a>
+<a href="aboutvelvet.html">About</a>
+<a href="contactvelvet.html">Contact</a>
+<a href="velvetaccount.html">Account</a>
+</div>
+</div>
+
+<div class="container">
+<h1>Welcome, <span id="userEmail"></span>! 🎂</h1>
+
+<div class="section">
+<h2>Your Account Details</h2>
+<p><strong>Email:</strong> <span id="emailDisplay"></span></p>
+<p><strong>Membership:</strong> Active</p>
+<p><strong>Reward Points:</strong> 120 🍰</p>
+</div>
+
+<div class="section">
+<h2>Quick Links</h2>
+<div class="account-links">
+<a href="velvetpreorder.html">📝 View/Make Pre-Orders</a>
+<a href="velvetcart.html">🛒 Your Cart</a>
+<a href="#">📜 Past Orders</a>
+</div>
+<button onclick="logout()">Logout</button>
+</div>
+
+</div>
+
+<script>
+// Fake login simulation
+if(!localStorage.getItem("velvetLoggedIn")){
+    window.location.href="velvetlogin.html";
+}
+
+// Display saved email
+const email = localStorage.getItem("velvetEmail") || "Guest";
+document.getElementById("userEmail").innerText = email;
+document.getElementById("emailDisplay").innerText = email;
+
+// Logout function
+function logout(){
+    localStorage.removeItem("velvetLoggedIn");
+    localStorage.removeItem("velvetEmail");
+    alert("You have been logged out.");
+    window.location.href="velvetlogin.html";
+}
+</script>
+
+</body>
+</html>

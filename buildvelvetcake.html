@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Velvet Crust Cakes | Build Your Cake</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  font-family:Arial;
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#FFF8F2;
+  color:#6B3E2E;
+}
+
+/* NAVBAR */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 40px;
+  background:white;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+  flex-wrap:wrap;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.navlinks a{
+  margin:0 10px;
+  text-decoration:none;
+  color:#6B3E2E;
+  font-size:14px;
+}
+
+.navlinks a:hover{
+  color:#D8A47F;
+}
+
+/* PAGE */
+.container{
+  padding:40px;
+  max-width:1100px;
+  margin:auto;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+/* LAYOUT */
+.builder{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+/* CAKE PREVIEW */
+.preview{
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+.cake-area{
+  position:relative;
+  width:300px;
+  height:300px;
+  margin:auto;
+}
+
+.cake-area img{
+  width:100%;
+  height:100%;
+  object-fit:contain; /* prevents image overflow */
+}
+
+.cake-layer{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+/* OPTIONS */
+.options{
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+select{
+  width:100%;
+  padding:10px;
+  margin-bottom:20px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+
+label{
+  font-weight:bold;
+}
+
+.toppings label{
+  display:block;
+  margin:5px 0;
+}
+
+.price{
+  font-size:20px;
+  margin:15px 0;
+  color:#D8A47F;
+}
+
+button{
+  padding:12px;
+  border:none;
+  background:#D8A47F;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+  width:100%;
+  margin-top:10px;
+}
+
+button:hover{
+  background:#c78e6c;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .builder{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+
+
+
+
+
+
+<body>
+
+<script>
+if(localStorage.getItem("velvetLoggedIn")!=="true"){
+window.location.href="velvetlogin.html";
+}
+</script>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">Velvet Crust Cakes</div>
+
+<div class="navlinks">
+<a href="velvetindex.html">Home</a>
+<a href="velvetmenu.html">Menu</a>
+<a href="velvetgallery.html">Gallery</a>
+<a href="buildvelvetcake.html">Build Cake</a>
+<a href="velvetpreorder.html">Pre-Order</a>
+<a href="velvetcart.html">Cart</a>
+<a href="aboutvelvet.html">About</a>
+<a href="contactvelvet.html">Contact</a>
+<a href="velvetaccount.html">Account</a>
+</div>
+
+</div>
+
+<div class="container">
+
+<h1>Build Your Custom Cake</h1>
+
+<div class="builder">
+
+<!-- CAKE PREVIEW -->
+
+<div class="preview">
+
+<h2>Cake Preview</h2>
+
+<div class="cake-area">
+
+<img id="baseCake" src="https://images.unsplash.com/photo-1621303837174-89787a7d4729">
+
+<img id="frostingLayer" class="cake-layer" src="" style="display:none">
+
+<img id="toppingLayer" class="cake-layer" src="" style="display:none">
+
+</div>
+
+</div>
+
+<!-- OPTIONS -->
+
+<div class="options">
+
+<label>Cake Flavor</label>
+
+<select id="flavor" onchange="updateCake()">
+<option value="700">Vanilla Cake</option>
+<option value="750">Chocolate Cake</option>
+<option value="800">Red Velvet Cake</option>
+</select>
+
+
+<label>Frosting</label>
+
+<select id="frosting" onchange="updateCake()">
+<option value="0">None</option>
+<option value="120">Vanilla Frosting</option>
+<option value="140">Chocolate Frosting</option>
+<option value="150">Cream Cheese Frosting</option>
+</select>
+
+
+<label>Toppings</label>
+
+<div class="toppings">
+
+<label><input type="checkbox" value="80" onchange="updateCake()"> Strawberries</label>
+<label><input type="checkbox" value="70" onchange="updateCake()"> Chocolate Chips</label>
+<label><input type="checkbox" value="60" onchange="updateCake()"> Almonds</label>
+<label><input type="checkbox" value="90" onchange="updateCake()"> Blueberries</label>
+
+</div>
+
+<div class="price">
+Total Price: ₱<span id="price">700</span>
+</div>
+
+<button onclick="addCakeToCart()">Add Custom Cake To Cart</button>
+
+<button onclick="resetCake()">Reset Cake</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function updateCake(){
+
+let flavorPrice=parseInt(document.getElementById("flavor").value);
+let frostingPrice=parseInt(document.getElementById("frosting").value);
+
+let toppings=document.querySelectorAll(".toppings input");
+
+let toppingTotal=0;
+
+toppings.forEach(t=>{
+if(t.checked) toppingTotal+=parseInt(t.value);
+});
+
+let total=flavorPrice+frostingPrice+toppingTotal;
+
+document.getElementById("price").innerText=total;
+
+/* CAKE IMAGE CHANGES */
+
+let frostingLayer=document.getElementById("frostingLayer");
+
+if(frostingPrice>0){
+frostingLayer.src="https://images.unsplash.com/photo-1559622214-f8a9850965bb";
+frostingLayer.style.display="block";
+}
+else{
+frostingLayer.style.display="none";
+}
+
+let toppingLayer=document.getElementById("toppingLayer");
+
+if(toppingTotal>0){
+toppingLayer.src="https://images.unsplash.com/photo-1603532648955-039310d9ed75";
+toppingLayer.style.display="block";
+}
+else{
+toppingLayer.style.display="none";
+}
+
+}
+
+/* ADD TO CART */
+
+function addCakeToCart(){
+
+let price=document.getElementById("price").innerText;
+
+let cart=JSON.parse(localStorage.getItem("velvetCart"))||[];
+
+cart.push({
+item:"Custom Velvet Cake",
+price:Number(price)
+});
+
+localStorage.setItem("velvetCart",JSON.stringify(cart));
+
+alert("Custom cake added to cart!");
+
+}
+
+/* RESET */
+
+function resetCake(){
+
+document.getElementById("flavor").selectedIndex=0;
+document.getElementById("frosting").selectedIndex=0;
+
+document.querySelectorAll(".toppings input")
+.forEach(t=>t.checked=false);
+
+updateCake();
+
+}
+
+updateCake();
+
+
+if(localStorage.getItem("velvetLoggedIn")!=="true"){
+  window.location.href="velvetlogin.html";
+}
+
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class
+
+</script>
+
+</body>
+</html>
+
+

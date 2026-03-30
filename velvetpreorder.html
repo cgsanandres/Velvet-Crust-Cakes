@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Velvet Crust Cakes | Pre-Order</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#FFF8F2;
+color:#6B3E2E;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+.navlinks a{
+margin:0 10px;
+text-decoration:none;
+color:#6B3E2E;
+font-size:14px;
+}
+
+.navlinks a:hover{
+color:#D8A47F;
+}
+
+.container{
+padding:40px;
+max-width:800px;
+margin:auto;
+}
+
+h1,h2{
+color:#D8A47F;
+}
+
+.section{
+background:white;
+padding:30px;
+border-radius:10px;
+margin-bottom:30px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+form{
+display:flex;
+flex-direction:column;
+}
+
+input, select, textarea{
+padding:12px;
+margin:10px 0;
+border-radius:5px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+button{
+padding:14px;
+border:none;
+background:#D8A47F;
+color:white;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+margin-top:10px;
+}
+
+button:hover{
+background:#c78e6c;
+}
+
+</style>
+</head>
+<body>
+
+<div class="navbar">
+<div class="logo">Velvet Crust Cakes</div>
+<div class="navlinks">
+<a href="velvetindex.html">Home</a>
+<a href="velvetmenu.html">Menu</a>
+<a href="velvetgallery.html">Gallery</a>
+<a href="buildvelvetcake.html">Build Cake</a>
+<a href="velvetpreorder.html">Pre-Order</a>
+<a href="velvetcart.html">Cart</a>
+<a href="aboutvelvet.html">About</a>
+<a href="contactvelvet.html">Contact</a>
+<a href="velvetaccount.html">Account</a>
+</div>
+</div>
+
+<div class="container">
+<h1>Pre-Order Your Treats</h1>
+
+<div class="section">
+<h2>Pre-Order Form</h2>
+<p>Fill in your details and let us know what deliciousness you'd like to reserve! 🍰</p>
+
+<form onsubmit="return submitPreorder()">
+<input type="text" placeholder="Full Name" required>
+<input type="email" placeholder="Email Address" required>
+<input type="tel" placeholder="Phone Number" required>
+<input type="date" placeholder="Pick-up Date" required>
+
+<label for="cakeType">Select Cake Type</label>
+<select id="cakeType" required>
+<option value="">-- Choose Cake --</option>
+<option>Classic Chocolate Cake</option>
+<option>Red Velvet Cake</option>
+<option>Custom Cake</option>
+<option>Seasonal Special</option>
+</select>
+
+<input type="number" placeholder="Quantity" min="1" required>
+
+<textarea rows="4" placeholder="Special Instructions (Flavor, Frosting, Message)" ></textarea>
+
+<button type="submit">Submit Pre-Order</button>
+</form>
+</div>
+
+</div>
+
+<script>
+function submitPreorder(){
+alert("Thanks! Your pre-order has been received. We’ll contact you to confirm the details. 🎂");
+return false;
+}
+</script>
+
+</body>
+</html>
